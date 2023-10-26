@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demoapp-v2
+  namespace: canary-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demoapp
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: demoapp
+        version: v2
+    spec:
+      containers:
+      - image: xxxxxxxx.dkr.ecr.ap-south-1.amazonaws.com/demo-app:v2
+        imagePullPolicy: IfNotPresent
+        name: demo-app-v2
+        ports:
+        - containerPort: 5000
