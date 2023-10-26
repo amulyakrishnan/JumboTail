@@ -1,0 +1,66 @@
+# Master settings
+controller:
+  name: jenkins-controller
+  image: "jenkins/jenkins"
+  imageTag: "2.333"  # Specify the Jenkins image version
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+  # Jenkins URL configuration
+  # The URL should be set to an externally accessible address (e.g., via Ingress or LoadBalancer)
+  serviceType: ClusterIP  # Change to LoadBalancer or NodePort for external access
+  ingress:
+    enabled: true
+    name: jenkins
+    pathType: Prefix
+    paths: ["/"]
+    hosts:
+      - jenkins.example.com  # Change to your domain or IP address
+  servicePort: 8080
+  agentListenerPort: 50000
+
+# Persistence settings
+controller:
+  persistence:
+    enabled: true
+    size: 10Gi
+    storageClassName: default  # Use the appropriate storage class for your cluster
+
+# Security settings
+controller:
+  authorizationStrategy: RoleBased
+  securityRealm: "jenkins"
+  serviceAccount: jenkins
+  installPlugins:
+    - kubernetes:1.29.3
+    # Add any other necessary plugins here
+
+# Kubernetes plugin settings
+controller:
+  jenkinsUrl: http://jenkins-controller:8080
+  jnlpServiceName: jenkins-controller
+  agentListenerPort: 50000
+  kubernetesNamespace: jenkins
+
+# Agent settings
+agent:
+  enabled: true
+  image: "jenkins/jnlp-slave"
+  tag: "3.35-6"
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "200m"
+  customJenkinsLabels: "k8s-slave"
+  containerCap: 10
+
+# NetworkPolicy settings (enable this if needed)
+networkPolicy:
+  enabled: false

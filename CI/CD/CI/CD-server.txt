@@ -1,0 +1,16 @@
+Let's assume we using Jenkins as an example:
+
+Install Helm if you haven't already, and initialize Helm in your Kubernetes cluster.
+
+Add Helm Repository: Add the Jenkins Helm chart repository to your local Helm[Execute commands below]:
+
+helm repo add jenkins https://charts.jenkins.io
+helm repo update
+
+Create a Values File: Create a values.yaml file to configure your Jenkins installation. Customize the values according to your project requirements.
+
+Install Jenkins using Helm: Install Jenkins with Helm, specifying the Jenkins chart and your custom values file:
+
+helm install jenkins jenkins/jenkins -f values.yaml
+
+Access Jenkins: Follow the instructions provided by Helm to access the Jenkins dashboard, set up an admin user, and install necessary plugins.
