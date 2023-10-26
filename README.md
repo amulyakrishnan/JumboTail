@@ -4,8 +4,6 @@ Table of Contents
     1. Dockerfile for Jenkins Agent
     2. AWS Infrastructure Architecture
 
-Introduction
-
 1. Building the Jenkins Agent Docker Image
 
 We have created a Dockerfile for a Jenkins agent that is capable of building Java applications and comes preinstalled with Helm, AWS CLI, and Maven. Here's how you can build the Docker image:

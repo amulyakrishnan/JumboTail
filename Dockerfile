@@ -19,5 +19,4 @@ USER jenkins
 
 # Set the working directory
 WORKDIR /var/jenkins
-
 CMD ["/bin/bash"]
